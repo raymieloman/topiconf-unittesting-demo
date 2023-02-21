@@ -1,10 +1,25 @@
 package nl.topicus.topiconf.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Presentation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
     private int attendees;
     private String city;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getAttendees() {
         return attendees;
