@@ -27,4 +27,11 @@ public class PresentationTest {
         presentation.incrementAttendees();
         assertEquals(6, this.presentation.getAttendees());
     }
+
+    @Test
+    public void testSetAndGetCity() {
+        this.presentation.setCity("Deventer");
+
+        assertEquals("Deventer", this.presentation.getCity());
+    }
 }
