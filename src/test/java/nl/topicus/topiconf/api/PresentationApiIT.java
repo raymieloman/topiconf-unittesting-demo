@@ -8,8 +8,14 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -48,6 +54,28 @@ public class PresentationApiIT {
 
     @Test
     @Order(2)
+    public void testList() {
+
+        // Arrange
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("accept", "application/json");
+        HttpEntity requestEntity = new HttpEntity<>(null, headers);
+
+        // Act
+        ResponseEntity<List<Presentation>> response = restTemplate.exchange("/api/presentations",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<List<Presentation>>() {
+                });
+        List<Presentation> responseBodyAsList = response.getBody();
+
+        // Assert
+        assertEquals(1, responseBodyAsList.size());
+        assertEquals("Java for us", responseBodyAsList.get(0).getTitle());
+    }
+
+    @Test
+    @Order(3)
     public void testFindById() {
 
         // Given
@@ -55,6 +83,7 @@ public class PresentationApiIT {
         // When
         ResponseEntity<Presentation> resultFromGet = this.restTemplate.getForEntity("/api/presentations/"+lastId, Presentation.class);
 
+        // Then
         assertEquals(200, resultFromGet.getStatusCode().value());
         Presentation presentationFromGetById = resultFromGet.getBody();
 
