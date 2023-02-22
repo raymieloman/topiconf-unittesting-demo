@@ -33,7 +33,6 @@ public class PresentationApiIT {
     @Test
     @Order(1)
     public void testPost() {
-
         // Given
         Presentation presentationToBePosted = new Presentation();
         presentationToBePosted.setTitle("Java for us");
@@ -48,13 +47,13 @@ public class PresentationApiIT {
         Presentation presentation = result.getBody();
         assertEquals("Java for us", presentation.getTitle());
 
-       lastId = presentation.getId();
+        // set the last Id for using later on fetching by id
+        lastId = presentation.getId();
     }
 
     @Test
     @Order(2)
     public void testList() {
-
         // Arrange
         HttpHeaders headers = new HttpHeaders();
         headers.set("accept", "application/json");
@@ -76,16 +75,14 @@ public class PresentationApiIT {
     @Test
     @Order(3)
     public void testFindById() {
-
-        // Given
+        // Given => In fact given the imperative instructions given in step 1 and 2
 
         // When
-        ResponseEntity<Presentation> resultFromGet = this.restTemplate.getForEntity("/api/presentations/"+lastId, Presentation.class);
+        ResponseEntity<Presentation> resultFromGet = this.restTemplate.getForEntity("/api/presentations/" + lastId, Presentation.class);
 
         // Then
         assertEquals(200, resultFromGet.getStatusCode().value());
         Presentation presentationFromGetById = resultFromGet.getBody();
-
         assertEquals("Java for us", presentationFromGetById.getTitle());
     }
 }
