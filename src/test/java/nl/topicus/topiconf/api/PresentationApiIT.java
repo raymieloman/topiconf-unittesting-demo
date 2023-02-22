@@ -47,7 +47,6 @@ public class PresentationApiIT {
         // And
         Presentation presentation = result.getBody();
         assertEquals("Java for us", presentation.getTitle());
-        System.err.println(presentation.getId());
 
        lastId = presentation.getId();
     }
