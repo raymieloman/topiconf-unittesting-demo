@@ -1,4 +1,4 @@
-package nl.topicus.topiconf.api;
+package nl.topicus.topiconf.integrationtests;
 
 import nl.topicus.topiconf.model.Presentation;
 import org.junit.jupiter.api.MethodOrderer;
