@@ -1,4 +1,4 @@
-package nl.topicus.topiconf.api;
+package nl.topicus.topiconf.integrationtests;
 
 import nl.topicus.topiconf.model.Presentation;
 import org.junit.jupiter.api.MethodOrderer;
@@ -47,7 +47,6 @@ public class PresentationApiIT {
         // And
         Presentation presentation = result.getBody();
         assertEquals("Java for us", presentation.getTitle());
-        System.err.println(presentation.getId());
 
        lastId = presentation.getId();
     }
